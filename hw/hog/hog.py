@@ -45,6 +45,11 @@ def boar_brawl(player_score, opponent_score):
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    score1 = abs((player_score % 10) - (opponent_score // 10) % 10) * 3
+    if score1 > 1:
+        return score1
+    else:
+        return 1
     # END PROBLEM 2
 
 
@@ -63,6 +68,10 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     assert num_rolls <= 10, "Cannot roll more than 10 dice."
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return boar_brawl(player_score, opponent_score)
+    else:
+        return roll_dice(num_rolls, dice) 
     # END PROBLEM 3
 
 
@@ -90,6 +99,18 @@ def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    import math
+    if n == 1:
+        return 1
+    cnt = 2
+    i = 2
+    while i < sqrt(n):
+        if n % i == 0:
+            cnt +=2
+        i += 1
+    if i == sqrt(n):
+        cnt += 1
+    return cnt
     # END PROBLEM 4
 
 
@@ -97,6 +118,10 @@ def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    if num_factors(score) == 3 or num_factors(score) == 4:
+        while is_prime(score) == False:
+            score += 1
+    return score
     # END PROBLEM 4
 
 
@@ -106,6 +131,7 @@ def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    return sus_points(simple_update(), num_rolls, player_score, opponent_score, dice)
     # END PROBLEM 4
 
 
@@ -120,7 +146,7 @@ def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=
     """Simulate a game and return the final scores of both players, with
     Player 0's score first and Player 1's score second.
 
-    E.g., play(always_roll_5, always_roll_5, sus_update) simulates a game in
+    E.g., play(alws_roll_5, always_roll_5, sus_update) simulates a game in
     which both players always choose to roll 5 dice on every turn and the Sus
     Fuss rule is in effect.
 
