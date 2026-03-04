@@ -104,11 +104,11 @@ def num_factors(n):
         return 1
     cnt = 2
     i = 2
-    while i < sqrt(n):
+    while i < math.sqrt(n):
         if n % i == 0:
             cnt +=2
         i += 1
-    if i == sqrt(n):
+    if i == math.sqrt(n):
         cnt += 1
     return cnt
     # END PROBLEM 4
@@ -146,7 +146,7 @@ def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=
     """Simulate a game and return the final scores of both players, with
     Player 0's score first and Player 1's score second.
 
-    E.g., play(alws_roll_5, always_roll_5, sus_update) simulates a game in
+    E.g., play(always_roll_5, always_roll_5, sus_update) simulates a game in
     which both players always choose to roll 5 dice on every turn and the Sus
     Fuss rule is in effect.
 
@@ -170,6 +170,14 @@ def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            d0 = strategy0(score0, score1)
+            score0 = update(d0, score0, score1, dice)
+        else:
+            d1 = strategy1(score1, score0)
+            score1 = update(d1, score1, score0, dice)
+        who = 1 - who 
     # END PROBLEM 5
     return score0, score1
 
