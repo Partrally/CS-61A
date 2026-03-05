@@ -131,7 +131,7 @@ def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
-    return sus_points(simple_update(), num_rolls, player_score, opponent_score, dice)
+    return sus_points(simple_update(num_rolls, player_score, opponent_score, dice))
     # END PROBLEM 4
 
 
@@ -204,10 +204,7 @@ def always_roll(n):
 
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
-
-
-
-    
+    return n
     # END PROBLEM 6
 
 
