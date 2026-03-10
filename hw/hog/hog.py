@@ -285,18 +285,28 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
-    maxi = 1
-    averaged_dice = make_averaged(dice, times_called)
+    """maxi = 1
+    averaged_dice = make_averaged(roll_dice, times_called)
     for i in range(9):
-        if averaged_dice(dice, i+2) > averaged_dice(dice, maxi):
+        if averaged_dice(i+2, dice) > averaged_dice(maxi, dice):
             maxi = i + 2
         else:
-            if averaged_dice(dice, i+2) == averaged_dice(dice, maxi):
-                if averaged_dice(dice, i + 2) == 1:
+            if averaged_dice(i+2, dice) == averaged_dice(maxi, dice):
+                if averaged_dice(i+2, dice) == 1:
                     continue
                 else:
-                    maxi == i + 2
+                    maxi = i + 2
     return i + 2
+    """
+    average_roll_dice = make_averaged(roll_dice, times_called)
+    max = -1
+    maxi = 1
+    for i in range(1, 11):
+        score = average_roll_dice(i, dice)
+        if score > max:
+            max = score
+            maxi =i
+    return maxi
     # END PROBLEM 9
 
 
@@ -342,6 +352,8 @@ def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore the Sus Fuss rule.
     """
     # BEGIN PROBLEM 10
+    if boar_brawl(score, opponent_score) >= threshold:
+        num_rolls = 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -351,6 +363,8 @@ def sus_strategy(score, opponent_score, threshold=11, num_rolls=6):
     THRESHOLD points, and returns NUM_ROLLS otherwise. Consider both the Boar Brawl and
     Suss Fuss rules."""
     # BEGIN PROBLEM 11
+    if sus_points(boar_brawl(score, opponent_score) + score) - score >= threshold:
+        num_rolls = 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
